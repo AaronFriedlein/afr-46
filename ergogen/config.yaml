@@ -256,6 +256,7 @@ pcbs:
         where: true
         params:
           keycaps: true
+          reverse: true
           hotswap: true
           from: "{{column_net}}"
           to: "{{colrow}}"
@@ -303,6 +304,16 @@ cases:
         name: wall3mm
         extrude: 8
         shift: [-120,100,0]
+    wallHalfmm:
+      - what: outline
+        name: wallHalfmm
+        extrude: 3
+        shift: [-120,100,5]
+    lowerRidge:
+      - what: outline
+        name: lowerRidge
+        extrude: 3
+        shift: [-120,100,2]
     switches:
       - what: outline
         name: switches
@@ -312,7 +323,10 @@ cases:
       - what: case
         name: wall3mm
       - what: case
-        name: baseBoard
+        name: wallHalfmm
+        operation: subtract
+      - what: case
+        name: lowerRidge
         operation: subtract
     testplate:
       - what: case
