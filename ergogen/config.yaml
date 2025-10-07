@@ -1,0 +1,325 @@
+meta:
+  engine: 4.1.0
+  name: AFR-46
+  author: Aaron Friedlein
+  notes: A play on "A For effort"
+units:
+  # proxy Spacing Variables
+  kx: cx
+  ky: cy
+  # padding Variables
+  px: kx + 2
+  py: ky + 2
+  # fillet
+  filletSize: 5
+  # screw variables 
+  screwSize: 1 # M2 scews (2mm diameter=1mm radius)
+  screwOffset: 0.75filletSize
+  # shift variables for corners of PCB
+  topLeftXShift: -0.8kx
+  topLeftYShift: 1.58ky
+  topRightXShift: 2.1kx
+  topRightYShift: ky
+  thumbTopXShift: .15kx
+  thumbTopYShift: ky
+  thumbFarTopXShift: 0.8kx
+  thumbFarTopYShift: ky
+  thumbFarBottomXShift: 0.8kx
+  thumbFarBottomYShift: -0.7ky
+  thumbNearXShift: 0
+  thumbNearYShift: -0.72kx
+  centerCornerBottomXShift: 0
+  centerCornerBottomYShift: -2.35ky
+  centerCornerTopXShift: 0
+  centerCornerTopYShift: -1.73ky
+  bottomLeftXShift: -0.8kx
+  bottomLeftYShift: -0.8kx
+  #might be dumb but itll work
+  threeMM: 3
+  halfMM: 0.5
+
+points:
+  zones:
+    matrix:
+      anchor.shift: [50,-100]
+      columns:
+        outer:
+          key.column_net: P2
+        pinky:
+          key.column_net: P3
+        ring:
+          #key.spread: 21
+          key.stagger: 10
+          key.column_net: P4
+        middle:
+          key.stagger: 5
+          key.column_net: P15
+        index:
+          key.stagger: -5
+          key.column_net: P16
+        inner:
+          key.column_net: P14
+      rows:
+        bottom:
+          row_net: P8
+        home:
+          row_net: P6
+        top:
+          row_net: P5
+    thumbfan:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-19, -22]
+      columns:
+        thumb1:
+          rows:
+            home:
+              row_net: P9
+          key.column_net: P16
+        thumb2:
+          rows:
+            home:
+              row_net: P9
+          key.column_net: P14
+        thumbStack:
+          # TODO: column traces are still fucked
+          rows:
+            home:
+              row_net: P9
+            top:
+              row_net: P8
+          key:
+            spread: 22
+            splay: -20
+            origin: [-30, -8]
+            column_net: P10
+        far:
+          rows:
+            home:
+          key:
+            spread: 21.25
+            splay: -15
+            origin: [-11, -2]
+            column_net: P15
+            row_net: P9
+  # rotate: -10
+outlines:
+  keys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [kx-0.5,ky-0.5] # 
+  switches: # only for testing layout
+    - what: rectangle
+      where: true
+      bound: false
+      size: [14,14]
+  board:
+    - what: polygon
+      operation: stack
+      fillet: filletSize
+      points:
+        - ref: matrix_outer_top
+          shift: [topLeftXShift,topLeftYShift]
+        - ref: matrix_inner_top
+          shift: [topRightXShift,topRightYShift]
+        - ref: thumbfan_thumbStack_top 
+          shift: [thumbTopXShift,thumbTopYShift]
+        - ref: thumbfan_far_home
+          shift: [thumbFarTopXShift,thumbFarTopYShift]
+        - ref: thumbfan_far_home
+          shift: [thumbFarBottomXShift,thumbFarBottomYShift]
+        - ref: thumbfan_thumb2_home
+          shift: [thumbNearXShift,thumbNearYShift]
+        - ref: matrix_middle_bottom
+          shift: [centerCornerBottomXShift,centerCornerBottomYShift]
+        - ref: matrix_middle_bottom
+          shift: [centerCornerTopXShift, centerCornerTopYShift]
+        - ref: matrix_outer_bottom
+          shift: [bottomLeftXShift,bottomLeftYShift]
+  wallHalfmm:
+    - what: polygon
+      operation: stack
+      fillet: filletSize
+      points:
+        - ref: matrix_outer_top
+          shift: [topLeftXShift-halfMM,topLeftYShift+halfMM]
+        - ref: matrix_inner_top
+          shift: [topRightXShift+halfMM,topRightYShift+halfMM]
+        - ref: thumbfan_thumbStack_top 
+          shift: [thumbTopXShift+halfMM,thumbTopYShift+halfMM]
+        - ref: thumbfan_far_home
+          shift: [thumbFarTopXShift+halfMM,thumbFarTopYShift+halfMM]
+        - ref: thumbfan_far_home
+          shift: [thumbFarBottomXShift+halfMM,thumbFarBottomYShift-halfMM]
+        - ref: thumbfan_thumb2_home
+          shift: [thumbNearXShift-halfMM,thumbNearYShift-halfMM]
+        - ref: matrix_middle_bottom
+          shift: [centerCornerBottomXShift-halfMM,centerCornerBottomYShift-halfMM]
+        - ref: matrix_middle_bottom
+          shift: [centerCornerTopXShift-halfMM, centerCornerTopYShift-halfMM]
+        - ref: matrix_outer_bottom
+          shift: [bottomLeftXShift-halfMM,bottomLeftYShift-halfMM]
+  wall3mm:
+    - what: polygon
+      operation: stack
+      fillet: filletSize
+      points:
+        - ref: matrix_outer_top
+          shift: [topLeftXShift-threeMM,topLeftYShift+threeMM]
+        - ref: matrix_inner_top
+          shift: [topRightXShift+threeMM,topRightYShift+threeMM]
+        - ref: thumbfan_thumbStack_top 
+          shift: [thumbTopXShift+threeMM,thumbTopYShift+threeMM]
+        - ref: thumbfan_far_home
+          shift: [thumbFarTopXShift+threeMM,thumbFarTopYShift+threeMM]
+        - ref: thumbfan_far_home
+          shift: [thumbFarBottomXShift+threeMM,thumbFarBottomYShift-threeMM]
+        - ref: thumbfan_thumb2_home
+          shift: [thumbNearXShift-threeMM,thumbNearYShift-threeMM]
+        - ref: matrix_middle_bottom
+          shift: [centerCornerBottomXShift-threeMM,centerCornerBottomYShift-threeMM]
+        - ref: matrix_middle_bottom
+          shift: [centerCornerTopXShift-threeMM, centerCornerTopYShift-threeMM]
+        - ref: matrix_outer_bottom
+          shift: [bottomLeftXShift-threeMM,bottomLeftYShift-threeMM]
+  lowerRidge:
+    - what: polygon
+      operation: stack
+      fillet: filletSize
+      points:
+        - ref: matrix_outer_top
+          shift: [topLeftXShift+threeMM,topLeftYShift-threeMM]
+        - ref: matrix_inner_top
+          shift: [topRightXShift-threeMM,topRightYShift-threeMM]
+        - ref: thumbfan_thumbStack_top 
+          shift: [thumbTopXShift-threeMM,thumbTopYShift-threeMM]
+        - ref: thumbfan_far_home
+          shift: [thumbFarTopXShift-threeMM,thumbFarTopYShift-threeMM]
+        - ref: thumbfan_far_home
+          shift: [thumbFarBottomXShift-threeMM,thumbFarBottomYShift+threeMM]
+        - ref: thumbfan_thumb2_home
+          shift: [thumbNearXShift+threeMM,thumbNearYShift+threeMM]
+        - ref: matrix_middle_bottom
+          shift: [centerCornerBottomXShift+threeMM,centerCornerBottomYShift+threeMM]
+        - ref: matrix_middle_bottom
+          shift: [centerCornerTopXShift+threeMM, centerCornerTopYShift+threeMM]
+        - ref: matrix_outer_bottom
+          shift: [bottomLeftXShift+threeMM,bottomLeftYShift+threeMM]
+  screws:
+    - what: circle
+      radius: screwSize
+      where:  
+        ref: matrix_outer_top
+        shift: [topLeftXShift+screwOffset,topLeftYShift-screwOffset]
+    - what: circle
+      radius: screwSize
+      where:
+          ref: matrix_inner_top
+          shift: [topRightXShift-screwOffset,topRightYShift-screwOffset]
+    - what: circle
+      # TODO: revisit this location
+      radius: screwSize
+      where:
+        ref: thumbfan_far_home
+        shift:  [0,ky]
+    - what: circle
+      # TODO: revisit this location
+      radius: screwSize
+      where:
+        ref: matrix_middle_bottom
+        shift: [screwOffset,centerCornerTopYShift-screwOffset]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: matrix_outer_bottom
+        shift: [bottomLeftXShift+screwOffset,bottomLeftYShift+screwOffset]
+  niceNano:
+    - what: rectangle
+      size: [18.3,34.1]
+      where:
+        ref: matrix_inner_home
+        shift: [22,15]
+  overview:
+    [board, -keys, -screws, -niceNano]
+  caseOutline:
+    [wall3mm, -board]
+  
+pcbs:
+  flippable_pcb:
+    template: kicad8
+    outlines:
+      - outline: board
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: true
+        params:
+          keycaps: true
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      mcu:
+        what: ceoloide/mcu_nice_nano
+        where:
+          ref: matrix_inner_home
+          shift: [22,17]
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      reset:
+        what: button
+        where:
+          ref: matrix_inner_bottom
+          shift: [kx,0.8ky]
+          rotate: 90
+        params:
+          from: RST
+          to: GND
+      batteryConnector:
+        what: jstph
+        where:
+          ref: matrix_inner_bottom
+          shift: [1.45kx,0.5kx]
+        params:
+          pos: RAW
+          neg: GND
+          
+        
+
+cases:
+    baseBoard: 
+      - what: outline
+        name: board
+        extrude: 6
+        shift: [-120,100,2]
+    wall3mm:
+      - what: outline
+        name: wall3mm
+        extrude: 8
+        shift: [-120,100,0]
+    switches:
+      - what: outline
+        name: switches
+        shift: [-120,100,0]
+        extrude: 2
+    finalCase:
+      - what: case
+        name: wall3mm
+      - what: case
+        name: baseBoard
+        operation: subtract
+    testplate:
+      - what: case
+        name: wall3mm
+      - what: case
+        name: baseBoard
+        operation: subtract
+      - what: case
+        name: switches
+        operation: subtract
