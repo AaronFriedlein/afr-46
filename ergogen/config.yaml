@@ -258,8 +258,8 @@ pcbs:
           keycaps: true
           reverse: true
           hotswap: true
-          from: "{{column_net}}"
-          to: "{{colrow}}"
+          from: "{{colrow}}"
+          to: "{{column_net}}"
       mcu:
         what: ceoloide/mcu_nice_nano
         where:
@@ -274,11 +274,10 @@ pcbs:
         adjust:
           shift: [0, -5]
       reset:
-        what: button
+        what: ceoloide/reset_switch_tht_top
         where:
           ref: matrix_inner_bottom
           shift: [kx,0.8ky]
-          rotate: 90
         params:
           from: RST
           to: GND
