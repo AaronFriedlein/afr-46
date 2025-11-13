@@ -251,13 +251,15 @@ pcbs:
     outlines:
       - outline: board
     footprints:
-      mx_hotswap:
-        what: mx
+      ks33:
+        what: ceoloide/switch_gateron_ks27_ks33
         where: true
         params:
-          keycaps: true
-          reverse: true
-          hotswap: true
+          include_keycap: true
+          include_corner_marks: true
+          reversible: true
+          hotswap: false
+          solder: true
           from: "{{colrow}}"
           to: "{{column_net}}"
       mcu:
@@ -266,13 +268,36 @@ pcbs:
           ref: matrix_inner_home
           shift: [22,17]
       diode:
-        what: diode
+        what: ceoloide/diode_tht_sod123
         where: true
         params:
+          reversible: true
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          shift: [0, -5]
+          shift: [-8, 0]
+          rotate: 90
+      leds:
+        # what: ceoloide/diode_tht_sod123
+        # where: true
+        # params:
+        #   reversible: true
+        #   from: "{{key.led_previous}}"
+        #   to: "{{key.led_next}}"
+        # adjust:
+        #   shift: [1, 5]
+        what: ceoloide/led_sk6812mini-e
+        where: true
+        adjust:
+          shift: [0, 5]
+        params:
+          reversible: true
+          reverse_mount: true
+          include_traces_vias: true
+          P1: VCC
+          P2: "{{key.led_next}}" #DOUT
+          P3: GND
+          P4: "{{key.led_prev}}" #DIN
       reset:
         what: ceoloide/reset_switch_tht_top
         where:
