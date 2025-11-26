@@ -11,30 +11,42 @@ units:
   px: kx + 2
   py: ky + 2
   # fillet
-  filletSize: 5
-  # screw variables 
+  filletSize: 1.5
+  # screw variables
   screwSize: 1 # M2 scews (2mm diameter=1mm radius)
-  screwOffset: 0.75filletSize
+  screwOffset: 1.2filletSize
   # shift variables for corners of PCB
-  topLeftXShift: -0.8kx
-  topLeftYShift: 1.58ky
-  topRightXShift: 2.1kx
-  topRightYShift: ky
-  thumbTopXShift: .15kx
-  thumbTopYShift: ky
-  thumbFarTopXShift: 0.8kx
-  thumbFarTopYShift: ky
-  thumbFarBottomXShift: 0.8kx
-  thumbFarBottomYShift: -0.7ky
-  thumbNearXShift: 0
-  thumbNearYShift: -0.72kx
-  centerCornerBottomXShift: 0
-  centerCornerBottomYShift: -2.35ky
-  centerCornerTopXShift: 0
-  centerCornerTopYShift: -1.73ky
-  bottomLeftXShift: -0.8kx
-  bottomLeftYShift: -0.8kx
-  #might be dumb but itll work
+  topLeftXShiftSkeleton: -0.65kx
+  topLeftYShiftSkeleton: 0.65ky
+  pinkyCornerXShiftSkeleton: 0.45kx
+  pinkyCornerYShiftSkeleton: 0.65ky
+  ringOuterCornerXShiftSkeleton: -0.6kx
+  ringOuterCornerYShiftSkeleton: 0.65ky
+  ringInnerCornerXShiftSkeleton: 0.45kx
+  ringInnerCornerYShiftSkeleton: 0.65ky
+  middleOuterCornerXShiftSkeleton: -0.6kx
+  middleOuterCornerYShfit: 0.65ky
+  middleInnerCornerXShiftSkeleton: 0.6kx
+  middleInnerCornerYShfit: 0.65ky
+  indexInnerCornerXShiftSkeleton: -0.45kx
+  indexInnerCornerYShfit: 0.65ky
+  topRightXShiftSkeleton: 1.8kx
+  topRightYShiftSkeleton: 0.65ky
+  thumbTopXShiftSkeleton: .15kx
+  thumbTopYShiftSkeleton: 0.35ky
+  thumbFarTopXShiftSkeleton: 0.8kx
+  thumbFarTopYShiftSkeleton: ky
+  thumbFarBottomXShiftSkeleton: 0.8kx
+  thumbFarBottomYShiftSkeleton: -0.7ky
+  thumbNearXShiftSkeleton: 0.65kx
+  thumbNearYShiftSkeleton: -0.65ky
+  centerCornerBottomXShiftSkeleton: -0.65kx
+  centerCornerBottomYShiftSkeleton: -0.65ky
+  centerCornerTopXShiftSkeleton: 0
+  centerCornerTopYShiftSkeleton: 0.05ky
+  bottomLeftXShiftSkeleton: -0.65kx
+  bottomLeftYShiftSkeleton: -0.65ky
+  #itll work
   threeMM: 3
   halfMM: 0.5
 
@@ -120,103 +132,151 @@ outlines:
       fillet: filletSize
       points:
         - ref: matrix_outer_top
-          shift: [topLeftXShift,topLeftYShift]
+          shift: [topLeftXShiftSkeleton,topLeftYShiftSkeleton]
+        - ref: matrix_pinky_top
+          shift: [pinkyCornerXShiftSkeleton, pinkyCornerYShiftSkeleton]
+        - ref: matrix_ring_top
+          shift: [ringOuterCornerXShiftSkeleton,ringOuterCornerYShiftSkeleton]
+        - ref: matrix_ring_top
+          shift: [ringInnerCornerXShiftSkeleton,ringInnerCornerYShiftSkeleton]
+        - ref: matrix_middle_top
+          shift: [middleOuterCornerXShiftSkeleton,middleOuterCornerYShfit]
+        - ref: matrix_middle_top
+          shift: [middleInnerCornerXShiftSkeleton,middleInnerCornerXShiftSkeleton]
+        - ref: matrix_index_top
+          shift: [indexInnerCornerXShiftSkeleton,indexInnerCornerYShfit]
         - ref: matrix_inner_top
-          shift: [topRightXShift,topRightYShift]
-        - ref: thumbfan_thumbStack_top 
-          shift: [thumbTopXShift,thumbTopYShift]
+          shift: [topRightXShiftSkeleton,topRightYShiftSkeleton]
+        - ref: matrix_inner_bottom
+          shift: [topRightXShiftSkeleton,thumbTopYShiftSkeleton]
         - ref: thumbfan_far_home
-          shift: [thumbFarTopXShift,thumbFarTopYShift]
+          shift: [thumbFarTopXShiftSkeleton,thumbFarTopYShiftSkeleton]
         - ref: thumbfan_far_home
-          shift: [thumbFarBottomXShift,thumbFarBottomYShift]
-        - ref: thumbfan_thumb2_home
-          shift: [thumbNearXShift,thumbNearYShift]
-        - ref: matrix_middle_bottom
-          shift: [centerCornerBottomXShift,centerCornerBottomYShift]
-        - ref: matrix_middle_bottom
-          shift: [centerCornerTopXShift, centerCornerTopYShift]
+          shift: [thumbFarBottomXShiftSkeleton,thumbFarBottomYShiftSkeleton]
+        - ref: thumbfan_thumb1_home
+          shift: [thumbNearXShiftSkeleton,thumbNearYShiftSkeleton]
+        - ref: thumbfan_thumb1_home
+          shift: [centerCornerBottomXShiftSkeleton,centerCornerBottomYShiftSkeleton]
+        - ref: thumbfan_thumb1_home
+          shift: [centerCornerBottomXShiftSkeleton, centerCornerTopYShiftSkeleton]
         - ref: matrix_outer_bottom
-          shift: [bottomLeftXShift,bottomLeftYShift]
+          shift: [bottomLeftXShiftSkeleton,bottomLeftYShiftSkeleton]
   wallHalfmm:
     - what: polygon
       operation: stack
       fillet: filletSize
       points:
         - ref: matrix_outer_top
-          shift: [topLeftXShift-halfMM,topLeftYShift+halfMM]
+          shift: [topLeftXShiftSkeleton-halfMM,topLeftYShiftSkeleton+halfMM]
+        - ref: matrix_pinky_top
+          shift: [pinkyCornerXShiftSkeleton-halfMM, pinkyCornerYShiftSkeleton+halfMM]
+        - ref: matrix_ring_top
+          shift: [ringOuterCornerXShiftSkeleton-halfMM,ringOuterCornerYShiftSkeleton+halfMM]
+        - ref: matrix_ring_top
+          shift: [ringInnerCornerXShiftSkeleton-halfMM,ringInnerCornerYShiftSkeleton+halfMM]
+        - ref: matrix_middle_top
+          shift: [middleOuterCornerXShiftSkeleton-halfMM,middleOuterCornerYShfit+halfMM]
+        - ref: matrix_middle_top
+          shift: [middleInnerCornerXShiftSkeleton+halfMM,middleInnerCornerXShiftSkeleton+halfMM]
+        - ref: matrix_index_top
+          shift: [indexInnerCornerXShiftSkeleton+halfMM,indexInnerCornerYShfit+halfMM]
         - ref: matrix_inner_top
-          shift: [topRightXShift+halfMM,topRightYShift+halfMM]
-        - ref: thumbfan_thumbStack_top 
-          shift: [thumbTopXShift+halfMM,thumbTopYShift+halfMM]
+          shift: [topRightXShiftSkeleton+halfMM,topRightYShiftSkeleton+halfMM]
+        - ref: matrix_inner_bottom
+          shift: [topRightXShiftSkeleton+halfMM,thumbTopYShiftSkeleton]
         - ref: thumbfan_far_home
-          shift: [thumbFarTopXShift+halfMM,thumbFarTopYShift+halfMM]
+          shift: [thumbFarTopXShiftSkeleton+halfMM,thumbFarTopYShiftSkeleton+halfMM]
         - ref: thumbfan_far_home
-          shift: [thumbFarBottomXShift+halfMM,thumbFarBottomYShift-halfMM]
-        - ref: thumbfan_thumb2_home
-          shift: [thumbNearXShift-halfMM,thumbNearYShift-halfMM]
-        - ref: matrix_middle_bottom
-          shift: [centerCornerBottomXShift-halfMM,centerCornerBottomYShift-halfMM]
-        - ref: matrix_middle_bottom
-          shift: [centerCornerTopXShift-halfMM, centerCornerTopYShift-halfMM]
+          shift: [thumbFarBottomXShiftSkeleton+halfMM,thumbFarBottomYShiftSkeleton-halfMM]
+        - ref: thumbfan_thumb1_home
+          shift: [thumbNearXShiftSkeleton-halfMM,thumbNearYShiftSkeleton-halfMM]
+        - ref: thumbfan_thumb1_home
+          shift: [centerCornerBottomXShiftSkeleton-halfMM,centerCornerBottomYShiftSkeleton-halfMM]
+        - ref: thumbfan_thumb1_home
+          shift: [centerCornerBottomXShiftSkeleton-halfMM, centerCornerTopYShiftSkeleton-halfMM]
         - ref: matrix_outer_bottom
-          shift: [bottomLeftXShift-halfMM,bottomLeftYShift-halfMM]
+          shift: [bottomLeftXShiftSkeleton-halfMM,bottomLeftYShiftSkeleton-halfMM]
   wall3mm:
     - what: polygon
       operation: stack
       fillet: filletSize
       points:
         - ref: matrix_outer_top
-          shift: [topLeftXShift-threeMM,topLeftYShift+threeMM]
+          shift: [topLeftXShiftSkeleton-threeMM,topLeftYShiftSkeleton+threeMM]
+        - ref: matrix_pinky_top
+          shift: [pinkyCornerXShiftSkeleton-threeMM, pinkyCornerYShiftSkeleton+threeMM]
+        - ref: matrix_ring_top
+          shift: [ringOuterCornerXShiftSkeleton-threeMM,ringOuterCornerYShiftSkeleton+threeMM]
+        - ref: matrix_ring_top
+          shift: [ringInnerCornerXShiftSkeleton-threeMM,ringInnerCornerYShiftSkeleton+threeMM]
+        - ref: matrix_middle_top
+          shift: [middleOuterCornerXShiftSkeleton-threeMM,middleOuterCornerYShfit+threeMM]
+        - ref: matrix_middle_top
+          shift: [middleInnerCornerXShiftSkeleton+threeMM,middleInnerCornerXShiftSkeleton+threeMM]
+        - ref: matrix_index_top
+          shift: [indexInnerCornerXShiftSkeleton+threeMM,indexInnerCornerYShfit+threeMM]
         - ref: matrix_inner_top
-          shift: [topRightXShift+threeMM,topRightYShift+threeMM]
-        - ref: thumbfan_thumbStack_top 
-          shift: [thumbTopXShift+threeMM,thumbTopYShift+threeMM]
+          shift: [topRightXShiftSkeleton+threeMM,topRightYShiftSkeleton+threeMM]
+        - ref: matrix_inner_bottom
+          shift: [topRightXShiftSkeleton+threeMM,thumbTopYShiftSkeleton]
         - ref: thumbfan_far_home
-          shift: [thumbFarTopXShift+threeMM,thumbFarTopYShift+threeMM]
+          shift: [thumbFarTopXShiftSkeleton+threeMM,thumbFarTopYShiftSkeleton+2]
         - ref: thumbfan_far_home
-          shift: [thumbFarBottomXShift+threeMM,thumbFarBottomYShift-threeMM]
-        - ref: thumbfan_thumb2_home
-          shift: [thumbNearXShift-threeMM,thumbNearYShift-threeMM]
-        - ref: matrix_middle_bottom
-          shift: [centerCornerBottomXShift-threeMM,centerCornerBottomYShift-threeMM]
-        - ref: matrix_middle_bottom
-          shift: [centerCornerTopXShift-threeMM, centerCornerTopYShift-threeMM]
+          shift: [thumbFarBottomXShiftSkeleton+threeMM,thumbFarBottomYShiftSkeleton-threeMM]
+        - ref: thumbfan_thumb1_home
+          shift: [thumbNearXShiftSkeleton-threeMM,thumbNearYShiftSkeleton-threeMM]
+        - ref: thumbfan_thumb1_home
+          shift: [centerCornerBottomXShiftSkeleton-threeMM,centerCornerBottomYShiftSkeleton-threeMM]
+        - ref: thumbfan_thumb1_home
+          shift: [centerCornerBottomXShiftSkeleton-threeMM, centerCornerTopYShiftSkeleton-threeMM]
         - ref: matrix_outer_bottom
-          shift: [bottomLeftXShift-threeMM,bottomLeftYShift-threeMM]
+          shift: [bottomLeftXShiftSkeleton-threeMM,bottomLeftYShiftSkeleton-threeMM]
   lowerRidge:
     - what: polygon
       operation: stack
       fillet: filletSize
       points:
         - ref: matrix_outer_top
-          shift: [topLeftXShift+threeMM,topLeftYShift-threeMM]
+          shift: [topLeftXShiftSkeleton+threeMM,topLeftYShiftSkeleton-threeMM]
+        - ref: matrix_pinky_top
+          shift: [pinkyCornerXShiftSkeleton+threeMM, pinkyCornerYShiftSkeleton-threeMM]
+        - ref: matrix_ring_top
+          shift: [ringOuterCornerXShiftSkeleton+threeMM,ringOuterCornerYShiftSkeleton-threeMM]
+        - ref: matrix_ring_top
+          shift: [ringInnerCornerXShiftSkeleton+threeMM,ringInnerCornerYShiftSkeleton-threeMM]
+        - ref: matrix_middle_top
+          shift: [middleOuterCornerXShiftSkeleton+threeMM,middleOuterCornerYShfit-threeMM]
+        - ref: matrix_middle_top
+          shift: [middleInnerCornerXShiftSkeleton-threeMM,middleInnerCornerXShiftSkeleton-threeMM]
+        - ref: matrix_index_top
+          shift: [indexInnerCornerXShiftSkeleton-threeMM,indexInnerCornerYShfit-threeMM]
         - ref: matrix_inner_top
-          shift: [topRightXShift-threeMM,topRightYShift-threeMM]
-        - ref: thumbfan_thumbStack_top 
-          shift: [thumbTopXShift-threeMM,thumbTopYShift-threeMM]
+          shift: [topRightXShiftSkeleton-threeMM,topRightYShiftSkeleton-threeMM]
+        - ref: matrix_inner_bottom
+          shift: [topRightXShiftSkeleton-threeMM,thumbTopYShiftSkeleton-threeMM]
         - ref: thumbfan_far_home
-          shift: [thumbFarTopXShift-threeMM,thumbFarTopYShift-threeMM]
+          shift: [thumbFarTopXShiftSkeleton-threeMM,thumbFarTopYShiftSkeleton-2]
         - ref: thumbfan_far_home
-          shift: [thumbFarBottomXShift-threeMM,thumbFarBottomYShift+threeMM]
-        - ref: thumbfan_thumb2_home
-          shift: [thumbNearXShift+threeMM,thumbNearYShift+threeMM]
-        - ref: matrix_middle_bottom
-          shift: [centerCornerBottomXShift+threeMM,centerCornerBottomYShift+threeMM]
-        - ref: matrix_middle_bottom
-          shift: [centerCornerTopXShift+threeMM, centerCornerTopYShift+threeMM]
+          shift: [thumbFarBottomXShiftSkeleton-threeMM,thumbFarBottomYShiftSkeleton+threeMM]
+        - ref: thumbfan_thumb1_home
+          shift: [thumbNearXShiftSkeleton+threeMM,thumbNearYShiftSkeleton+threeMM]
+        - ref: thumbfan_thumb1_home
+          shift: [centerCornerBottomXShiftSkeleton+threeMM,centerCornerBottomYShiftSkeleton+threeMM]
+        - ref: thumbfan_thumb1_home
+          shift: [centerCornerBottomXShiftSkeleton+threeMM, centerCornerTopYShiftSkeleton+threeMM]
         - ref: matrix_outer_bottom
-          shift: [bottomLeftXShift+threeMM,bottomLeftYShift+threeMM]
+          shift: [bottomLeftXShiftSkeleton+threeMM,bottomLeftYShiftSkeleton+threeMM]
   screws:
     - what: circle
       radius: screwSize
       where:  
         ref: matrix_outer_top
-        shift: [topLeftXShift+screwOffset,topLeftYShift-screwOffset]
+        shift: [topLeftXShiftSkeleton+screwOffset,topLeftYShiftSkeleton-screwOffset]
     - what: circle
       radius: screwSize
       where:
           ref: matrix_inner_top
-          shift: [topRightXShift-screwOffset,topRightYShift-screwOffset]
+          shift: [topRightXShiftSkeleton-screwOffset,topRightYShiftSkeleton-screwOffset]
     - what: circle
       # TODO: revisit this location
       radius: screwSize
@@ -228,23 +288,25 @@ outlines:
       radius: screwSize
       where:
         ref: matrix_middle_bottom
-        shift: [screwOffset,centerCornerTopYShift-screwOffset]
+        shift: [screwOffset,centerCornerTopYShiftSkeleton-screwOffset]
     - what: circle
       radius: screwSize
       where:
         ref: matrix_outer_bottom
-        shift: [bottomLeftXShift+screwOffset,bottomLeftYShift+screwOffset]
+        shift: [bottomLeftXShiftSkeleton+screwOffset,bottomLeftYShiftSkeleton+screwOffset]
   niceNano:
     - what: rectangle
       size: [18.3,34.1]
       where:
         ref: matrix_inner_home
-        shift: [22,15]
+        shift: [20,10]
   overview:
     [board, -keys, -screws, -niceNano]
   caseOutline:
     [wall3mm, -board]
-  
+  lowerRidgeOutline:
+    [wall3mm, -wallHalfmm]
+ 
 pcbs:
   flippable_pcb:
     template: kicad8
@@ -266,7 +328,9 @@ pcbs:
         what: ceoloide/mcu_nice_nano
         where:
           ref: matrix_inner_home
-          shift: [22,17]
+          shift: [20,12]
+        params:
+          reversible: true
       diode:
         what: ceoloide/diode_tht_sod123
         where: true
@@ -278,14 +342,6 @@ pcbs:
           shift: [-8, 0]
           rotate: 90
       leds:
-        # what: ceoloide/diode_tht_sod123
-        # where: true
-        # params:
-        #   reversible: true
-        #   from: "{{key.led_previous}}"
-        #   to: "{{key.led_next}}"
-        # adjust:
-        #   shift: [1, 5]
         what: ceoloide/led_sk6812mini-e
         where: true
         adjust:
@@ -298,27 +354,24 @@ pcbs:
           P2: "{{key.led_next}}" #DOUT
           P3: GND
           P4: "{{key.led_prev}}" #DIN
-      reset:
-        what: ceoloide/reset_switch_tht_top
-        where:
-          ref: matrix_inner_bottom
-          shift: [kx,0.8ky]
-        params:
-          from: RST
-          to: GND
-      batteryConnector:
-        what: jstph
-        where:
-          ref: matrix_inner_bottom
-          shift: [1.45kx,0.5kx]
-        params:
-          pos: RAW
-          neg: GND
-          
-        
-
+      # reset:
+      #   what: ceoloide/reset_switch_tht_top
+      #   where:
+      #     ref: matrix_inner_bottom
+      #     shift: [kx,0.8ky]
+      #   params:
+      #     from: RST
+      #     to: GND
+      # batteryConnector:
+      #   what: jstph
+      #   where:
+      #     ref: matrix_inner_bottom
+      #     shift: [1.45kx,0.5kx]
+      #   params:
+      #     pos: RAW
+      #     neg: GND
 cases:
-    baseBoard: 
+    baseBoard:
       - what: outline
         name: board
         extrude: 6
